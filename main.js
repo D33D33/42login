@@ -7,7 +7,7 @@ var express = require('express'),
     fs = require('fs'),
     child_process = require('child_process');
 
-port = process.env.PORT || 3000;
+port = process.env.PORT || 3001;
 
 server.listen(port, function () {
     console.log('Server listening at port %d', port);
