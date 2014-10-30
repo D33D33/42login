@@ -32,8 +32,40 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-8">
+    <div class="col-md-8">
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Users</h3>
+                </div>
+                <table id="users" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>TWITTER</th>
+                        <th>MAC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Arp</h3>
+                </div>
+                <table id="arps" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>IP</th>
+                        <th>MAC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Leases</h3>
@@ -55,23 +87,21 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Arp</h3>
-                </div>
-                <table id="arps" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>IP</th>
-                        <th>MAC</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+    </div>
+    <div class="col-md-4" id="user">
+        <h3 class="panel-title">Me</h3>
+
+        <form role="form">
+            <div class="form-group">
+                <label for="nameInput">Nom</label>
+                <input type="text" class="form-control" id="nameInput" placeholder="Tip your name">
             </div>
-        </div>
+            <div class="form-group">
+                <label for="twitterInput">Twitter</label>
+                <input type="text" class="form-control" id="twitterInput" placeholder="Tip your twitter">
+            </div>
+        </form>
+        <button class="btn btn-default">Save</button>
     </div>
 </div>
 

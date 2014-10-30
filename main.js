@@ -5,7 +5,10 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     fs = require('fs'),
-    child_process = require('child_process');
+    child_process = require('child_process'),
+    _ = require('underscore'),
+    Datastore = require('nedb'),
+    db = new Datastore({ filename: 'user.db', autoload: true });
 
 port = process.env.PORT || 3001;
 
@@ -19,7 +22,8 @@ app.use(morgan('dev'));
 var leases = [],
     arps = [];
 
-function getLeases(cb) {
+function getLeases (cb) {
+    // /var/lib/dhcp/dhcpd.leases
     fs.readFile('dhcpd.leases', 'utf8', function (err, data) {
         if (err) {
             throw err;
@@ -73,8 +77,8 @@ function getLeases(cb) {
     });
 }
 
-function getArp(cb) {
-    child_process.execFile('arp', ['-n', '-i', 'wlan0'], function(err, stdout) {
+function getArp (cb) {
+    child_process.execFile('arp', ['-n', '-i', 'wlan0'], function (err, stdout) {
         if (err) {
             throw err;
         }
@@ -83,7 +87,7 @@ function getArp(cb) {
         var arps = [];
         for (var i = 0; i < lines.length; i++) {
             var l = lines[i];
-            if(l.indexOf('ether') !== -1) {
+            if (l.indexOf('ether') !== -1) {
                 var segs = l.split(/\s+/);
                 arps.push({
                     ip: segs[0],
@@ -96,7 +100,7 @@ function getArp(cb) {
 }
 
 function leasesUpdater () {
-    getLeases(function(lea) {
+    getLeases(function (lea) {
         leases = lea;
         io.to('clients').emit('leases', leases);
     });
@@ -106,7 +110,7 @@ function leasesUpdater () {
 leasesUpdater();
 
 function arpUpdater () {
-    getArp(function(a) {
+    getArp(function (a) {
         arps = a;
         io.to('clients').emit('arps', arps);
     });
@@ -116,18 +120,66 @@ function arpUpdater () {
 arpUpdater();
 
 io.on('connection', function (socket) {
+    var ip = socket.handshake.address;
+    console.log(ip);
+    getArp(function (arps) {
+        var mac;
+        for (var i = 0; i < arps.length; i++) {
+            if (arps[i].ip === socket.handshake.address) {
+                mac = arps.mac;
+            }
+        }
+        if (!mac) {
+            socket.emit('user', {
+                err: 'Not found'
+            });
+            return;
+        }
+
+        db.find({ mac: mac }, function (err, docs) {
+            if (!docs.length) {
+                socket.emit('user', {mac: mac});
+                return;
+            }
+            db.find({}, function (err, docs) {
+                io.to('clients').emit('users', docs);
+            });
+        });
+
+    });
     socket.join('clients');
 
+    db.find({}, function (err, docs) {
+        io.to('clients').emit('users', docs);
+    });
+
     /*socket.on('cancel', function (data) {
-        cups.cancelJob({
-            id: data.id,
-            dest: dest
-        });
-        console.log('cancel' + data.id);
-    });*/
+     cups.cancelJob({
+     id: data.id,
+     dest: dest
+     });
+     console.log('cancel' + data.id);
+     });*/
 
     socket.on('disconnect', function () {
         console.log('a user disconnect');
+    });
+
+    socket.on('user', function (user) {
+        db.find({ mac: user.mac }, function (err, docs) {
+            var u = {};
+            if (docs.length) {
+                u = docs[0];
+            }
+
+            _.extend(u, user);
+
+            db.insert(u, function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+        });
     });
 
     socket.emit('leases', leases);
