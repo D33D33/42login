@@ -1,54 +1,64 @@
 $(function () {
-    var socket = io();
+    var socket = io(),
+        arpsEntries = [],
+        leasesEntries = [],
+        users = [];
 
-    var leases = $('#leases').find('tbody');
+    var usersTb = $('#users').find('tbody');
+    function updateUser() {
+        usersTb.empty();
+
+        function getUser(mac) {
+            for (var iUser = 0; iUser < users.length; iUser++) {
+                var user = users[iUser];
+                if( user.mac === mac ) {
+                    return user;
+                }
+            }
+        }
+        function getLease(mac) {
+            for (var iLease = 0; iLease < leasesEntries.length; iLease++) {
+                var lease = leasesEntries[iLease];
+                if( lease.mac === mac ) {
+                    return lease;
+                }
+            }
+        }
+
+        for (var i = 0; i < arpsEntries.length; i++) {
+            var arp = arpsEntries[i];
+            var user = getUser(arp.mac);
+
+            if(!user) {
+                var lease = getLease(arp.mac);
+                user = {
+                    name: lease ? lease.host : arp.ip,
+                    fromLease: true
+                }
+            }
+
+            var classe = user.fromLease ? 'danger' : '',
+                row = $('<tr class="' + classe + '"></tr>');
+            row.append('<td>' + user.name + '</td>');
+            row.append('<td>' + (user.twitter ? '@' + user.twitter : '') + '</td>');
+
+            usersTb.prepend(row)
+        }
+    }
 
     socket.on('leases', function (data) {
-        leases.empty();
-
-        for (var i = 0; i < data.length; i++) {
-            var lease = data[i],
-                row = $('<tr></tr>');
-            row.append('<td>' + lease.host + '</td>');
-            row.append('<td>' + lease.ip + '</td>');
-            row.append('<td>' + lease.mac + '</td>');
-            row.append('<td>' + lease.state + '</td>');
-            row.append('<td>' + lease.start + '</td>');
-            row.append('<td>' + lease.end + '</td>');
-
-            leases.prepend(row)
-        }
+        leasesEntries = data;
+        updateUser();
     });
 
-
-    var arps = $('#arps').find('tbody');
     socket.on('arps', function (data) {
-        arps.empty();
-
-        for (var i = 0; i < data.length; i++) {
-            var arp = data[i],
-                row = $('<tr></tr>');
-            row.append('<td>' + arp.ip + '</td>');
-            row.append('<td>' + arp.mac + '</td>');
-
-            arps.append(row)
-        }
+        arpsEntries = data;
+        updateUser();
     });
 
-    var users = $('#users').find('tbody');
     socket.on('users', function (data) {
-        console.log(data);
-        users.empty();
-
-        for (var i = 0; i < data.length; i++) {
-            var user = data[i],
-                row = $('<tr></tr>');
-            row.append('<td>' + user.name + '</td>');
-            row.append('<td>' + user.twitter + '</td>');
-            row.append('<td>' + user.mac + '</td>');
-
-            users.append(row)
-        }
+        users = data;
+        updateUser();
     });
 
     var userForm = $('#user'),

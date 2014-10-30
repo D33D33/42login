@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>42 Login</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="navbar navbar-inverse" role="navigation">
@@ -34,36 +34,54 @@
     <div class="col-md-8">
 
         <div class="row">
-            <div class="jumbotron" id="user" style="overflow: auto">
-                <h1>Hello</h1>
-                <form role="form">
-                    <div class="form-group">
-                        <label for="nameInput">Nom</label>
-                        <input type="text" class="form-control" id="nameInput" placeholder="Tip your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="twitterInput">Twitter</label>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Users</h3>
+                </div>
+                <table id="users" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>TWITTER</th>
+                        <th>MAC</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Leases</h3>
+                </div>
+                <table id="leases" class="table table-striped">
 
-                        <div class="input-group">
-                            <div class="input-group-addon">@</div>
-                            <input type="text" class="form-control" id="twitterInput" placeholder="Tip your twitter">
-                        </div>
-                    </div>
-                </form>
-                <button class="btn btn-lg btn-info pull-right">Save</button>
+                    <thead>
+                    <tr>
+                        <th>HOST</th>
+                        <th>IP</th>
+                        <th>MAC</th>
+                        <th>STATE</th>
+                        <th>START</th>
+                        <th>END</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Online Users</h3>
+                <h3 class="panel-title">Arp</h3>
             </div>
-            <table id="users" class="table table-striped">
+            <table id="arps" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>NAME</th>
-                    <th>TWITTER</th>
+                    <th>IP</th>
+                    <th>MAC</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -74,8 +92,8 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery-1.11.1.min.js"></script>
 <script src="app.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

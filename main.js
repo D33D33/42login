@@ -121,7 +121,6 @@ arpUpdater();
 
 io.on('connection', function (socket) {
     var ip = socket.handshake.address;
-    ip = '192.168.10.1';
     console.log(ip);
     getArp(function (arps) {
         var mac;
@@ -156,22 +155,13 @@ io.on('connection', function (socket) {
     });
 
     socket.on('user', function (user) {
-        db.find({ mac: user.mac }, function (err, docs) {
-            var u = {};
-            if (docs.length) {
-                u = docs[0];
+        db.update({ mac: user.mac }, user, {upsert: true}, function (err) {
+            if (err) {
+                throw err;
             }
 
-            _.extend(u, user);
-
-            db.insert(u, function (err) {
-                if (err) {
-                    throw err;
-                }
-
-                db.find({}, function (err, docs) {
-                    io.to('clients').emit('users', docs);
-                });
+            db.find({}, function (err, docs) {
+                io.to('clients').emit('users', docs);
             });
         });
     });
