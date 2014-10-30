@@ -121,15 +121,17 @@ arpUpdater();
 
 io.on('connection', function (socket) {
     var ip = socket.handshake.address;
+    ip = '192.168.10.1';
     console.log(ip);
     getArp(function (arps) {
         var mac;
         for (var i = 0; i < arps.length; i++) {
-            if (arps[i].ip === socket.handshake.address) {
-                mac = arps.mac;
+            if (arps[i].ip === ip) {
+                mac = arps[i].mac;
             }
         }
         if (!mac) {
+            console.error('ip not found : ' + ip);
             socket.emit('user', {
                 err: 'Not found'
             });
@@ -141,25 +143,13 @@ io.on('connection', function (socket) {
                 socket.emit('user', {mac: mac});
                 return;
             }
-            db.find({}, function (err, docs) {
-                io.to('clients').emit('users', docs);
-            });
+
+            socket.emit('user', docs[0]);
         });
 
     });
+
     socket.join('clients');
-
-    db.find({}, function (err, docs) {
-        io.to('clients').emit('users', docs);
-    });
-
-    /*socket.on('cancel', function (data) {
-     cups.cancelJob({
-     id: data.id,
-     dest: dest
-     });
-     console.log('cancel' + data.id);
-     });*/
 
     socket.on('disconnect', function () {
         console.log('a user disconnect');
@@ -178,12 +168,20 @@ io.on('connection', function (socket) {
                 if (err) {
                     throw err;
                 }
+
+                db.find({}, function (err, docs) {
+                    io.to('clients').emit('users', docs);
+                });
             });
         });
     });
 
     socket.emit('leases', leases);
     socket.emit('arps', arps);
+    db.find({}, function (err, docs) {
+        socket.emit('users', docs);
+    });
+
     console.log('a user connect');
 });
 
