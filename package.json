@@ -1,0 +1,32 @@
+{
+  "name": "42login",
+  "version": "1.0.0",
+  "description": "42login ==========",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/D33D33/42login.git"
+  },
+  "keywords": [
+    "print",
+    "cups",
+    "printing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/D33D33/42login/issues"
+  },
+  "homepage": "https://github.com/D33D33/42login",
+  "dependencies": {
+    "body-parser": "^1.9.0",
+    "cupsidity": "0.0.2",
+    "express": "^4.9.6",
+    "formidable": "^1.0.15",
+    "morgan": "^1.3.2",
+    "socket.io": "^1.1.0"
+  }
+}

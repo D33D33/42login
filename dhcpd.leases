@@ -1,0 +1,175 @@
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.2.2
+
+lease 192.168.42.12 {
+  starts 3 2014/09/10 01:47:37;
+  ends 3 2014/09/10 01:57:37;
+  tstp 3 2014/09/10 01:57:37;
+  cltt 3 2014/09/10 01:47:37;
+  binding state free;
+  hardware ethernet 00:23:14:e9:8c:ac;
+  uid "\001\000#\024\351\214\254";
+}
+lease 192.168.42.11 {
+  starts 3 2014/09/10 02:02:56;
+  ends 3 2014/09/10 02:12:56;
+  cltt 3 2014/09/10 02:02:56;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet c4:85:08:1e:35:07;
+  uid "\001\304\205\010\0365\007";
+  client-hostname "HAL9000";
+}
+lease 192.168.42.13 {
+  starts 3 2014/09/10 02:03:26;
+  ends 3 2014/09/10 02:13:26;
+  cltt 3 2014/09/10 02:03:26;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:a6:c8:d4:59:4a;
+  uid "\001\204\246\310\324YJ";
+  client-hostname "Cantine_Brest";
+}
+lease 192.168.42.10 {
+  starts 3 2014/09/10 02:06:25;
+  ends 3 2014/09/10 02:16:25;
+  cltt 3 2014/09/10 02:06:25;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:7a:91:26:df:59;
+  client-hostname "deedee";
+}
+lease 192.168.42.14 {
+  starts 3 2014/09/10 02:03:58;
+  ends 3 2014/09/10 04:03:58;
+  cltt 3 2014/09/10 02:03:58;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:c5:37:71:55:53;
+  uid "\001|\3057qUS";
+  client-hostname "iPhonedeJulien";
+}
+server-duid "\000\001\000\001\033\242\037|D3Ll\014\"";
+
+lease 192.168.42.14 {
+  starts 3 2014/09/10 02:06:38;
+  ends 3 2014/09/10 04:06:38;
+  cltt 3 2014/09/10 02:06:38;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:c5:37:71:55:53;
+  uid "\001|\3057qUS";
+  client-hostname "iPhonedeJulien";
+}
+lease 192.168.42.11 {
+  starts 3 2014/09/10 02:07:17;
+  ends 3 2014/09/10 02:17:17;
+  cltt 3 2014/09/10 02:07:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet c4:85:08:1e:35:07;
+  uid "\001\304\205\010\0365\007";
+  client-hostname "HAL9000";
+}
+lease 192.168.42.13 {
+  starts 3 2014/09/10 02:08:26;
+  ends 3 2014/09/10 02:18:26;
+  cltt 3 2014/09/10 02:08:26;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:a6:c8:d4:59:4a;
+  uid "\001\204\246\310\324YJ";
+  client-hostname "Cantine_Brest";
+}
+lease 192.168.42.10 {
+  starts 3 2014/09/10 02:10:42;
+  ends 3 2014/09/10 02:20:42;
+  cltt 3 2014/09/10 02:10:42;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:7a:91:26:df:59;
+  client-hostname "deedee";
+}
+lease 192.168.42.11 {
+  starts 3 2014/09/10 02:12:18;
+  ends 3 2014/09/10 02:22:18;
+  cltt 3 2014/09/10 02:12:18;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet c4:85:08:1e:35:07;
+  uid "\001\304\205\010\0365\007";
+  client-hostname "HAL9000";
+}
+lease 192.168.42.13 {
+  starts 3 2014/09/10 02:13:26;
+  ends 3 2014/09/10 02:23:26;
+  cltt 3 2014/09/10 02:13:26;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:a6:c8:d4:59:4a;
+  uid "\001\204\246\310\324YJ";
+  client-hostname "Cantine_Brest";
+}
+lease 192.168.42.14 {
+  starts 3 2014/09/10 02:14:32;
+  ends 3 2014/09/10 04:14:32;
+  cltt 3 2014/09/10 02:14:32;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:c5:37:71:55:53;
+  uid "\001|\3057qUS";
+  client-hostname "iPhonedeJulien";
+}
+lease 192.168.42.10 {
+  starts 3 2014/09/10 02:15:31;
+  ends 3 2014/09/10 02:25:31;
+  cltt 3 2014/09/10 02:15:31;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:7a:91:26:df:59;
+  client-hostname "deedee";
+}
+lease 192.168.42.11 {
+  starts 3 2014/09/10 02:17:17;
+  ends 3 2014/09/10 02:27:17;
+  cltt 3 2014/09/10 02:17:17;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet c4:85:08:1e:35:07;
+  uid "\001\304\205\010\0365\007";
+  client-hostname "HAL9000";
+}
+lease 192.168.42.13 {
+  starts 3 2014/09/10 02:18:26;
+  ends 3 2014/09/10 02:28:26;
+  cltt 3 2014/09/10 02:18:26;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 84:a6:c8:d4:59:4a;
+  uid "\001\204\246\310\324YJ";
+  client-hostname "Cantine_Brest";
+}
+lease 192.168.42.10 {
+  starts 3 2014/09/10 02:19:21;
+  ends 3 2014/09/10 02:29:21;
+  cltt 3 2014/09/10 02:19:21;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 7c:7a:91:26:df:59;
+  client-hostname "deedee";
+}
