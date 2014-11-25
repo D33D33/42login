@@ -71,36 +71,34 @@ io.on('connection', function (socket)
 {
     var ip = socket.handshake.address;
     console.log(ip);
-    getArp(function (arps)
+
+    var mac;
+    for (var i = 0; i < arps.length; i++)
     {
-        var mac;
-        for (var i = 0; i < arps.length; i++)
+        if (arps[i].ip === ip)
         {
-            if (arps[i].ip === ip)
-            {
-                mac = arps[i].mac;
-            }
+            mac = arps[i].mac;
         }
-        if (!mac)
+    }
+    if (!mac)
+    {
+        console.error('ip not found : ' + ip);
+        socket.emit('user', {
+            err: 'Not found',
+            ip: ip
+        });
+        return;
+    }
+
+    db.find({mac: mac}, function (err, docs)
+    {
+        if (!docs.length)
         {
-            console.error('ip not found : ' + ip);
-            socket.emit('user', {
-                err: 'Not found'
-            });
+            socket.emit('user', {mac: mac});
             return;
         }
 
-        db.find({mac: mac}, function (err, docs)
-        {
-            if (!docs.length)
-            {
-                socket.emit('user', {mac: mac});
-                return;
-            }
-
-            socket.emit('user', docs[0]);
-        });
-
+        socket.emit('user', docs[0]);
     });
 
     socket.join('clients');
@@ -163,4 +161,3 @@ app.use(function errorHandler (err, req, res, next)
     res.status(500);
     res.render('error', {error: err});
 });
-
